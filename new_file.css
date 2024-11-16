@@ -1,0 +1,164 @@
+*{
+	padding: 0;
+	margin: 0;
+}
+html{
+    scroll-behavior:smooth ;
+	font-family: Arial, sans-serif;
+}
+
+body{
+	background-attachment: fixed;
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-image: url('https://blog.klbbx.cn/suiji2233/klbbxsuijiimg-yuanshen12-henping.php?t=1314');
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+.a,.b,.c,.d{
+	width: 80%;
+	/* height: 400px; */
+	height: 700px;
+	color: aliceblue;
+	background-color: rgba(255, 255, 255, 0.2);
+	   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+	   backdrop-filter: blur(4px);
+	   -webkit-backdrop-filter: blur(4px);
+	   border-radius: 10px;
+	   border: 1px solid rgba(255, 255, 255, 0.18);
+	   background-clip: padding-box;
+	   margin: 15px;
+	   
+	   
+}
+.sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 150px;
+      height: 100%;
+      transition: all 0.3s ease;
+	  display: flex;
+	  flex-direction: column;
+	  justify-content: center;
+	  align-items: flex-start;
+	  z-index: 999;
+    }
+
+   .sidebar ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+	  background-color: #9c9c9c;
+	  padding: 5px;
+	  padding-right: 10px;
+	  border-radius: 0px 15px 15px 0px;
+    }
+
+   .sidebar li {
+      padding: 15px 0;
+      border-bottom: 1.5px solid rgba(0, 0, 0, 0.1);
+    }
+	.sidebar li:hover{
+		background-color: #ffffff;
+		 border-radius: 5px;
+	}
+   .sidebar a {
+      text-decoration: none;
+      color: #000000;
+      display: block;
+      padding-left: 20px;
+	  padding-right: 15px;
+	 
+    }
+
+   .content {
+      margin-left: 200px;
+      padding: 20px;
+    }
+	
+	header {
+	    width: 100%;
+	    height: 700px;
+	    overflow: hidden;
+	    clip-path: polygon(0 0, 100% 0%, 100% 100%, 0 100%);
+	    transition: clip-path 0.5s ease;
+	    position: relative;
+	}
+	
+	.img {
+	    width: 100%;
+	    height: 100%;
+	    position: relative;
+	    overflow: hidden;
+	    background: url("./img/学校编程班网站 UI 设计.png");
+	    background-size: cover;
+	    transform: scale(1);
+	    transition: transform 0.5s ease;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+	.img h1{
+		color: aliceblue;
+		font-size: 54px;
+	}
+	.img b{
+		font-size: 35px;
+	}
+	 button{
+		padding: 15px;
+		width: 100px;
+		height: 50px;
+		border-radius: 5px;
+		border: 0;
+		background-color: #ff9560;
+		margin: 10px;
+	}
+/**团队css**/
+.card {
+	width: 274px;
+	background: #fff;
+	padding: 5px;
+	display: inline-block;
+	margin: 10px 8px 0 0;
+	border: 2px solid transparent;
+	border-radius: 5px;
+	overflow:hidden;
+}
+.card:hover{
+	border-color: #f00;
+}
+.card:hover>img{
+	transform: scale(1.2) rotate(360deg); /* 当鼠标悬停时，图片放大到1.2倍原始大小并旋转360度 */
+  transition: all 0.5s ease; /* 同样设置过渡效果，确保动画的连贯性 */
+  border-radius: 15px;
+}
+
+.card>img {
+	width:100%;
+	transition: all 0.5s ease; /* 设置过渡效果，让动画更平滑，0.5s是过渡时间，可以根据需要调整 */
+}
+
+.card>h5 {
+	margin: 20px;
+	color: #000000;
+	font-size: 20px;
+	text-align: center;
+}
+
+.card>p {
+	font-size: 15px;
+	color: #616161;
+	margin: 5px 0 15px 0;
+	text-align: center;
+}
+h4{
+	font-size: 30px;
+	text-align: center;
+	color: #797777;
+}

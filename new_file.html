@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>班级网站</title>
+		<link rel="stylesheet" href="new_file.css"/>
+		<link rel="stylesheet" href="styles.css"/>
+		<link rel="stylesheet" href="./2.css" />
+		<link rel="stylesheet" href="./new_file1.css" />
+		<!--bumo-->
+		<link rel="stylesheet" href="mdui.css">
+		<script src="mdui.global.js"></script>
+		<link rel="shortcut icon" href="./img/1.png" type="image/x-icon">
+		<!--图标-->
+		<link rel="stylesheet" href="https://cdn.staticfile.net/font-awesome/4.7.0/css/font-awesome.css">
+		<style>
+		/* 加载动画覆盖层样式 */
+#loading-overlay{
+    /* 固定定位 */
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    /* 溢出隐藏 */
+    overflow: hidden;
+    /* 渐变背景 */
+    background: linear-gradient(45deg,rgb(90,54,148) 0%,rgb(19,189,206) 33%,rgb(0,148,217) 66%,rgb(111,199,181) 100%);
+    background-size: 400%;
+    background-position: 0% 100%;
+    /* 执行背景渐变动画：动画名 时长 加速后减速 无限次播放 */
+    animation: gradient 7.5s ease-in-out infinite;
+	z-index: 9999;
+}
+/* 旋转loading的外圈 */
+.loader{
+    width: 150px;
+    height: 150px;
+    border: 3px solid transparent;
+    border-top-color: #fff;
+    /* 相对定位 居中 */
+    position: relative;
+    left: 50%;
+    top: 50%;
+    margin-left: -75px;
+    margin-top: -75px;
+    z-index: 2;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* 执行旋转动画 */
+    animation: spin 1.7s linear infinite;
+}
+/* 旋转loading的中圈 */
+.loader::before{
+    content: "";
+    /* 绝对定位 */
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    bottom: 5px;
+    right: 5px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: #fff;
+    /* 执行反向的旋转动画 reverse:反向 */
+    animation: spin 0.6s linear infinite reverse;
+}
+/* 旋转loading的内圈 */
+.loader::after{
+    content: "";
+    /* 绝对定位 */
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    bottom: 15px;
+    right: 15px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: #fff;
+    /* 执行旋转动画 */
+    animation: spin 1s linear infinite;
+}
+/* logo */
+.loader img{
+    width: 55%;
+    height: 55%;
+    border-radius: 50%;
+    /* 执行反向的旋转动画,时长必须和外圈的动画一致(不让其跟着旋转) */
+    animation: spin 1.7s linear infinite reverse;
+}
+.loader-text{
+    width: 50%;
+    height: 36px;
+    /* 绝对定位 水平居中 */
+    position: absolute;
+    top: 72%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    /* 防止选取 */
+    user-select: none;
+}
+.loader-text div{
+    width: 30px;
+    height: 36px;
+    color: #fff;
+    font-size: 32px;
+    margin: 0 20px;
+    /* 绝对定位 */
+    position: absolute;
+    /* 默认隐藏+旋转180度 */
+    opacity: 0;
+    transform: rotate(180deg);
+    /* 执行文字移动动画 */
+    animation: move 2s linear infinite;
+}
+/* 最后面的三个圆 */
+.loader-text div:nth-child(8)::before,
+.loader-text div:nth-child(9)::before,
+.loader-text div:nth-child(10)::before{
+    content: "";
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #fff;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+/* 文字下的投影 */
+.loader-text div::after{
+    content: "";
+    width: 10px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: rgba(255,255,255,0.15);
+    position: absolute;
+    bottom: -40px;
+    left: 50%;
+    margin-left: -5px;
+}
+/* 最后面的三个圆的投影 */
+.loader-text div:nth-child(8)::after,
+.loader-text div:nth-child(9)::after,
+.loader-text div:nth-child(10)::after{
+    left: 0;
+    margin-left: 0;
+}
+/* 接下来为各个文字设置动画延迟时间 */
+.loader-text div:nth-child(2){
+    animation-delay: 0.2s;
+}
+.loader-text div:nth-child(3){
+    animation-delay: 0.4s;
+}
+.loader-text div:nth-child(4){
+    animation-delay: 0.6s;
+}
+.loader-text div:nth-child(5){
+    animation-delay: 0.8s;
+}
+.loader-text div:nth-child(6){
+    animation-delay: 1s;
+}
+.loader-text div:nth-child(7){
+    animation-delay: 1.2s;
+}
+.loader-text div:nth-child(8){
+    animation-delay: 1.4s;
+}
+.loader-text div:nth-child(9){
+    animation-delay: 1.6s;
+}
+.loader-text div:nth-child(10){
+    animation-delay: 1.8s;
+}
+
+/* 定义动画 */
+/* 背景渐变动画 */
+@keyframes gradient {
+    50%{
+        background-position: 100% 0%;
+    }
+}
+/* 旋转动画 */
+@keyframes spin {
+    0%{
+        transform: rotate(0);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
+}
+/* 文字移动动画 */
+@keyframes move {
+    0%{
+        right: 0;
+        opacity: 0;
+    }
+    35%{
+        right: 41%;
+        opacity: 1;
+        transform: rotate(0);
+    }
+    65%{
+        right: 59%;
+        opacity: 1;
+        transform: rotate(0);
+    }
+    100%{
+        right: 100%;
+        transform: rotate(-180deg);
+    }
+}
+		</style>
+	</head>
+	<body>
+		<div id="loading-overlay">
+        <div class="loader"><img src="#" alt=""><!-- 学校logo --></div>
+        <div class="loader-text">
+            <!-- 10个div -->
+            <div>L</div>
+            <div>O</div>
+            <div>A</div>
+            <div>D</div>
+            <div>I</div>
+            <div>N</div>
+            <div>G</div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+		<header>
+		    <div class="img">
+				   <h1>XXX学校全民</h1>
+				   <b>XXX专业XXX年级</b>
+					<a href="#"><button>进入网站</button></a>
+		    </div>
+		</header>
+		<div class="sidebar">
+		    <ul>
+		      <li><a href="#1" class="nav-link" data-target="section1">同学简介</a></li>
+		      <li><a href="#2" class="nav-link" data-target="section2">班级介绍</a></li>
+		      <li><a href="#3" class="nav-link" data-target="section3">作品展示</a></li>
+		      <li><a href="#4" class="nav-link" data-target="section4">奖项展示</a></li>
+			  <li style="border-bottom: 3px solid rgba(0,0,0);"><a href="#5" class="nav-link" data-target="section4">团队介绍</a></li>
+			  <li><a href="#"><i class="fa fa-angle-double-up" style="font-size: 25px;"></i> 回到顶部</a></li>
+			  <li id="shareUrlButton"><a><i id="shareUrlButton" class="fa fa-link" style="font-size: 20px;"></i> 分享</a></li>
+			  <li><a href=""> <i class="fa fa-undo" style="font-size: 25px;"></i> 刷新</a></li>
+		    </ul>
+			
+		  </div>
+		<div class="a" id="1" style="height: 100%;">
+			<h3 style="font-size: 35px; color: black; text-align: center;">同学简介 <a href="./txjj/index.html" style="color: aquamarine;"><button style="float: right;font-size:15px">更多<i class="fa fa-angle-double-right" style="font-size:15px"></i></button></a>  </h3>
+			<!--显示同学图片加上鼠标移入简便简介出现-->
+			<div class="pub">
+				<!--微信头像-->
+				<figure class="sample">
+				  <img src="./img/1.jpg" alt="sample1" />
+				  <figcaption>
+				    <h3>同学1</h3>
+				    <!-- 随机文本，Lorem -->
+				    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. </p>
+				  </figcaption>
+				  <a href="#"></a>
+				</figure>
+				
+				<figure class="sample">
+				  <img src="./img/1.jpg" alt="sample1" />
+				  <figcaption>
+				    <h3>同学1</h3>
+				    <p>Deleniti, cum sit consectetur minima amet ad rerum? </p>
+				  </figcaption>
+				  <a href="#"></a>
+				</figure>
+				
+				<figure class="sample">
+				  <img src="./img/1.jpg" alt="sample1" />
+				  <figcaption>
+				    <h3>同学1</h3>
+				    <p>Provident voluptate magni ducimus reprehenderit consequuntur alias excepturi. </p>
+				  </figcaption>
+				  <a href="#"></a>
+				</figure>
+				<figure class="sample">
+				  <img src="./img/1.jpg" alt="sample1" />
+				  <figcaption>
+				    <h3>同学1</h3>
+				    <p>Provident voluptate magni ducimus reprehenderit consequuntur alias excepturi. </p>
+				  </figcaption>
+				  <a href="#"></a>
+				</figure>
+				<figure class="sample">
+				  <img src="./img/1.jpg" alt="sample1" />
+				  <figcaption>
+				    <h3>同学1</h3>
+				    <p>Provident voluptate magni ducimus reprehenderit consequuntur alias excepturi. </p>
+				  </figcaption>
+				  <a href="#"></a>
+				</figure>
+				<figure class="sample">
+				  <img src="./img/1.jpg" alt="sample1" />
+				  <figcaption>
+				    <h3>同学1</h3>
+				    <p>Provident voluptate magni ducimus reprehenderit consequuntur alias excepturi. </p>
+				  </figcaption>
+				  <a href="#"></a>
+				</figure>
+				<figure class="sample">
+				  <img src="./img/1.jpg" alt="sample1" />
+				  <figcaption>
+				    <h3>同学1</h3>
+				    <p>Provident voluptate magni ducimus reprehenderit consequuntur alias excepturi. </p>
+				  </figcaption>
+				  <a href="#"></a>
+				</figure>
+				<figure class="sample">
+				  <img src="./img/1.jpg" alt="sample1" />
+				  <figcaption>
+				    <h3>同学1</h3>
+				    <p>Provident voluptate magni ducimus reprehenderit consequuntur alias excepturi. </p>
+				  </figcaption>
+				  <a href="#"></a>
+				</figure>
+			</div>
+		</div>
+		<div class="b" id="2" style="height: 100%;">
+			<h4 style="color: black;">班级介绍/学校美景 <a href="./txjj/index.html" style="color: aquamarine;"><button style="float: right;font-size:15px">更多<i class="fa fa-angle-double-right" style="font-size:15px"></i></button></a> </h4>
+			<div class="mdui-row mdui-m-t-2">
+			    <div class="mdui-col-xs-12">
+			        <p class="mdui-text-color-white" style="color: #393939; font-size: 20px;">
+			            穿插其中的还有许多日常生活的抓拍：自习室里专注的眼神，午餐时分的谈笑声，图书馆内的静谧背影……这些看似平凡的瞬间，却是构成我们班级故事不可或缺的部分，它们温暖而又真实，让人不禁想起那段同窗情谊，那份纯粹的快乐。
+			
+			            我们的班级图片墙，就像是一个时光机，每次走过都会勾起心中的回忆，让人感慨万千。它不仅见证了我们的成长历程，更承载着我们对班级深深的归属感和怀念之情。每当有新面孔加入，我们便会邀请他们一起分享这些故事，让他们更快融入这个温暖的大家庭。
+			
+			            这面墙，是我们的记忆宝库，是情感的纽带，更是我们班级灵魂的缩影。它提醒着我们要珍惜眼前人，把握当下事，同时也鼓励着我们继续前行，创造更多属于我们的美好记忆。
+			        </p>
+			        <div class="mdui-grid-tile">
+			            <mdui-card clickable style="width: 200px;height: 124px"><a
+			                    href="ric/20240921145000.jpg"><img src="ric/20240921145000.jpg"
+			                        style="width: 200px;height: 124px"></a></mdui-card>
+			            <mdui-card clickable style="width: 200px;height: 124px"><a
+			                    href="ric/20240921145027.jpg"><img src="ric/20240921145027.jpg"
+			                        style="width: 200px;height: 124px"></a></mdui-card>
+			            <mdui-card clickable style="width: 200px;height: 124px"><a
+			                    href="ric/20240921145031.jpg"><img src="ric/20240921145031.jpg"
+			                        style="width: 200px;height: 124px"></a></mdui-card>
+			            <mdui-card clickable style="width: 200px;height: 124px"><a
+			                    href="ric/20240921145035.jpg"><img src="ric/20240921145038.jpg"
+			                        style="width: 200px;height: 124px"></a></mdui-card>
+			            <mdui-card clickable style="width: 200px;height: 124px"><a
+			                    href="ric/20240921145044.jpg"><img src="ric/20240921145044.jpg"
+			                        style="width: 200px;height: 124px"></a></mdui-card>
+			            <mdui-card clickable style="width: 200px;height: 124px"><a
+			                    href="ric/20240921145049.jpg"><img src="ric/20240921145049.jpg"
+			                        style="width: 200px;height: 124px"></a></mdui-card>
+			        </div>
+			    </div>
+			    <mdui-button variant="outlined" style="height: 35px;">还有更多属于我们自己的脚步...</mdui-button>
+			</div>
+		</div>
+		<div class="c" id="3" style="height: 100%;">
+			<h4>优秀作品展示 <a href="./txjj/index.html" style="color: aquamarine;"><button style="float: right;font-size:15px">更多<i class="fa fa-angle-double-right" style="font-size:15px"></i></button></a> </h4>
+			<h5 style="text-align: center; color: #393939;">求仙问卜，不如本事在身</h5>
+			<p>优秀的作品，就是我们班级的实力，就是我们班级的骄傲，就是我们班级的力量...</p>
+			<div class="db">
+				<div class="container">
+				    <div class="card">
+				        <img src="./videoback.jpg" alt="">
+				        <div class="text">
+				            <h2>项目作品名字 <span>/日期</span> /耗时</h2>
+				            <p>团队人员：</p>
+				        </div>
+				    </div>
+				    <div class="card">
+				        <img src="./videoback.jpg" alt="">
+				        <div class="text">
+				            <h2>项目作品名字 <span>/日期</span> /耗时</h2>
+				            <p>团队人员：</p>
+				        </div>
+				    </div>
+				    <div class="card">
+				        <img src="./videoback.jpg" alt="">
+				        <div class="text">
+				           <h2>项目作品名字 <span>/日期</span> /耗时</h2>
+				           <p>团队人员：</p>
+				        </div>
+				    </div>
+				</div>
+			</div>
+		</div>
+		<div class="d" id="4" style="height: 100%;">
+			<h4>奖项展示 <a href="./txjj/index.html" style="color: aquamarine;"><button style="float: right;font-size:15px">更多<i class="fa fa-angle-double-right" style="font-size:15px"></i></button></a> </h4>
+			<p>这里是我们班级的奖项，我们的荣誉和成就，都在这里展示，让我们的班级更加辉煌！</p>
+			<div class=".zt">
+			<div class="container">
+			    <div class="item">
+			        <span class="border"></span>
+			        <span class="border"></span>
+			        <span class="border"></span>
+			        <span class="border"></span>
+			        <img src="./videoback.jpg" alt="">
+			    </div>
+			    <div class="item">
+			        <span class="border"></span>
+			        <span class="border"></span>
+			        <span class="border"></span>
+			        <span class="border"></span>
+			        <img src="./videoback.jpg" alt="">
+			    </div>
+			    <div class="item">
+			        <span class="border"></span>
+			        <span class="border"></span>
+			        <span class="border"></span>
+			        <span class="border"></span>
+			        <img src="./videoback.jpg" alt="">
+			    </div>
+			</div>
+			</div>
+		</div>
+		<div class="d" id="5" style="height: 100%">
+			<h4>制作团队</h4>
+			<div class="card">
+				<img src="https://www.hkmre.top/Jack/wen/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20241024190147.jpg" alt="">
+				<h5>Jack</h5>
+				<p>前段工程师/python爬虫/UI设计师</p>
+				<p>广州市工贸技师学院-网站</p>
+			</div>
+			<div class="card">
+				<img src="./img/2.jfif" alt="">
+				<h5>布莫</h5>
+				<p>全栈开发/php/AI算法</p>
+				<p>广州大学附属中学美林湖学院</p>
+			</div>
+			<div class="card">
+				<img src="./img/1.jfif" alt="">
+				<h5>sugar</h5>
+				<p>UI设计师/素描/电脑绘画/</p>
+				<p>广州市城市建设职业学校-设计</p>
+			</div>
+		</div>
+		<script src="new_file.js"></script>
+		<script>
+			// 在页面加载完成时隐藏加载动画
+window.addEventListener('load', function () {
+    document.getElementById('loading-overlay').style.display = 'none';
+});
+
+
+
+		</script>
+		<style>
+		    .example-placement mdui-button {
+		        margin: 0.25rem;
+		        width: 7.5rem;
+		    }
+		</style>
+	</body>
+</html>
