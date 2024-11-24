@@ -1,0 +1,184 @@
+*{
+    padding: 0;
+    margin: 0;
+    scroll-behavior: smooth;
+}
+body{
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url('../img/1731755168087.jpg');
+    width: 100%;
+    height: 100%;
+    
+}
+nav{
+    background-color: rgba(0, 0, 0, 0.6);
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+    position: fixed;
+    text-align: center;
+	z-index: 9998;
+}
+nav a{
+    color: #fff;
+    font-size: 30px;
+    margin: 0 15px;
+    text-decoration: none;
+    margin: 10px;
+    position: relative;
+}
+/* 下划线（左进右出） */
+nav a::after{
+    content: '';
+    width: 100%;
+    height: 1px;
+    /* currentColor可以获取当前元素或父元素的color */
+    background-color: currentColor;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    /* 沿x轴缩放至隐藏 */
+    transform: scaleX(0);
+    /* 设置变换圆点为右 */
+    transform-origin: right;
+    /* 设置变换时的过渡 */
+    transition: transform 0.3s ease-out;
+}
+nav a:hover::after{
+    /* 沿x轴缩放至显示 */
+    transform: scaleX(1);
+    /* 设置变换圆点为左 */
+    transform-origin: left;
+}
+    
+.tp{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url('../img/1731755939109.jpg');
+    width: 100%;
+    height: 400px;
+}
+.f-card{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    align-self: center;
+}
+.f-card .card{
+    width: 200px;
+    margin: 5px;
+    height: 70px;
+    padding: 10px;
+     background: rgba(255, 255, 255, 0.7); /* 半透明背景 */
+    border-radius: 1em;
+    margin-top: -30px;
+    margin-bottom: 35px;
+    display: flex;
+    align-items: center;
+     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2); 
+}
+.f-card .card img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+}
+.f-card .card:hover img{
+    transform: scale(1.2);
+}
+.f-card .card .txt{
+    margin-left: 10px;
+    color: black;
+}
+.f-card .card .txt h5{
+    font-size: 20px;
+}
+.f-card .card .txt p{
+    color: #7f7f7f;
+}
+.quanju{
+    justify-content: center;
+    align-items: center;
+}
+h2{
+    width: 100%;
+    color: #fff;
+    margin: 5px;
+    margin-right: 0;
+    border-bottom: 5px dashed #7f7f7f;
+}
+.tpk{
+    width: 100%;
+    height: 100%;
+    columns:400px;/**每一列为300px**/
+    
+}
+.tpk img{
+    border-radius: 15px;
+    width:100%;
+    margin: 5px;
+    column-gap: 5px;
+}
+i{
+    margin-right: 5px;
+}
+.fq{
+    width: 100%;
+    height: 100%;
+      display: flex;
+      justify-content: center;
+    align-items: center;
+    align-self: center;
+    flex-wrap: wrap;
+    padding: 15px;
+    gap: 10px;
+}
+.fq .card1 {
+	width: 300px;
+	background: #fff;
+	display: inline-block;
+	border: 2px solid transparent;
+	border-radius: 5px;
+	overflow:hidden;
+}
+.card1:hover{
+	border-color: #f00;
+}
+.card1:hover>img{
+	transform: scale(1.2); /* 当鼠标悬停时，图片放大到1.2倍原始大小并旋转360度 */
+  transition: all 0.5s ease; /* 同样设置过渡效果，确保动画的连贯性 */
+  border-radius: 15px;
+  margin-bottom: 20px;
+}
+
+.card1>img {
+	width:100%;
+	transition: all 0.5s ease; /* 设置过渡效果，让动画更平滑，0.5s是过渡时间，可以根据需要调整 */
+}
+.bj1{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-attachment: fixed;
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-image: url('../img/1731755939109.jpg');
+	width: 100%;
+	height: 200px;
+	border-radius: 15px;
+}
+.bj1 .text1{
+	color: #fff;
+	text-align: left;
+}

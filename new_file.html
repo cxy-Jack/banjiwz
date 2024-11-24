@@ -2,462 +2,746 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>班级网站</title>
-		<link rel="stylesheet" href="new_file.css"/>
-		<link rel="stylesheet" href="styles.css"/>
-		<link rel="stylesheet" href="./2.css" />
-		<link rel="stylesheet" href="./new_file1.css" />
-		<!--bumo-->
-		<link rel="stylesheet" href="mdui.css">
-		<script src="mdui.global.js"></script>
-		<link rel="shortcut icon" href="./img/1.png" type="image/x-icon">
-		<!--图标-->
+		<title>网站开发高级5年一班</title>
 		<link rel="stylesheet" href="https://cdn.staticfile.net/font-awesome/4.7.0/css/font-awesome.css">
+		<link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="./css/styles.css">
+		<link rel="shortcut icon" href="./1.png" type="image/x-icon">
 		<style>
-		/* 加载动画覆盖层样式 */
-#loading-overlay{
-    /* 固定定位 */
-    position: fixed;
-    left: 0;
-    top: 0;
-    z-index: 1;
-    width: 100%;
-    height: 100%;
-    /* 溢出隐藏 */
-    overflow: hidden;
-    /* 渐变背景 */
-    background: linear-gradient(45deg,rgb(90,54,148) 0%,rgb(19,189,206) 33%,rgb(0,148,217) 66%,rgb(111,199,181) 100%);
-    background-size: 400%;
-    background-position: 0% 100%;
-    /* 执行背景渐变动画：动画名 时长 加速后减速 无限次播放 */
-    animation: gradient 7.5s ease-in-out infinite;
-	z-index: 9999;
+			p,h1,h2,h3,h4,h5,{
+				 font-family:'云峰飞云体' ;
+			}
+			/* 加载动画覆盖层样式 */
+	#loading-overlay{
+		/* 固定定位 */
+		position: fixed;
+		left: 0;
+		top: 0;
+		z-index: 1;
+		width: 100%;
+		height: 100%;
+		/* 溢出隐藏 */
+		overflow: hidden;
+		/* 渐变背景 */
+		background: linear-gradient(45deg,rgb(90,54,148) 0%,rgb(19,189,206) 33%,rgb(0,148,217) 66%,rgb(111,199,181) 100%);
+		background-size: 400%;
+		background-position: 0% 100%;
+		/* 执行背景渐变动画：动画名 时长 加速后减速 无限次播放 */
+		animation: gradient 7.5s ease-in-out infinite;
+		z-index: 9999;
+	}
+	/* 旋转loading的外圈 */
+	.loader{
+		width: 150px;
+		height: 150px;
+		border: 3px solid transparent;
+		border-top-color: #fff;
+		/* 相对定位 居中 */
+		position: relative;
+		left: 50%;
+		top: 50%;
+		margin-left: -75px;
+		margin-top: -75px;
+		z-index: 2;
+		border-radius: 50%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		/* 执行旋转动画 */
+		animation: spin 1.7s linear infinite;
+	}
+	/* 旋转loading的中圈 */
+	.loader::before{
+		content: "";
+		/* 绝对定位 */
+		position: absolute;
+		top: 5px;
+		left: 5px;
+		bottom: 5px;
+		right: 5px;
+		border-radius: 50%;
+		border: 3px solid transparent;
+		border-top-color: #fff;
+		/* 执行反向的旋转动画 reverse:反向 */
+		animation: spin 0.6s linear infinite reverse;
+	}
+	/* 旋转loading的内圈 */
+	.loader::after{
+		content: "";
+		/* 绝对定位 */
+		position: absolute;
+		top: 15px;
+		left: 15px;
+		bottom: 15px;
+		right: 15px;
+		border-radius: 50%;
+		border: 3px solid transparent;
+		border-top-color: #fff;
+		/* 执行旋转动画 */
+		animation: spin 1s linear infinite;
+	}
+	/* logo */
+	.loader img{
+		width: 55%;
+		height: 55%;
+		border-radius: 50%;
+		/* 执行反向的旋转动画,时长必须和外圈的动画一致(不让其跟着旋转) */
+		animation: spin 1.7s linear infinite reverse;
+	}
+	.loader-text{
+		width: 50%;
+		height: 36px;
+		/* 绝对定位 水平居中 */
+		position: absolute;
+		top: 72%;
+		left: 50%;
+		transform: translateX(-50%);
+		z-index: 3;
+		/* 防止选取 */
+		user-select: none;
+	}
+	.loader-text div{
+		width: 30px;
+		height: 36px;
+		color: #fff;
+		font-size: 32px;
+		margin: 0 20px;
+		/* 绝对定位 */
+		position: absolute;
+		/* 默认隐藏+旋转180度 */
+		opacity: 0;
+		transform: rotate(180deg);
+		/* 执行文字移动动画 */
+		animation: move 2s linear infinite;
+	}
+	/* 最后面的三个圆 */
+	.loader-text div:nth-child(8)::before,
+	.loader-text div:nth-child(9)::before,
+	.loader-text div:nth-child(10)::before{
+		content: "";
+		width: 10px;
+		height: 10px;
+		border-radius: 50%;
+		background-color: #fff;
+		position: absolute;
+		left: 0;
+		bottom: 0;
+	}
+	/* 文字下的投影 */
+	.loader-text div::after{
+		content: "";
+		width: 10px;
+		height: 5px;
+		border-radius: 50%;
+		background-color: rgba(255,255,255,0.15);
+		position: absolute;
+		bottom: -40px;
+		left: 50%;
+		margin-left: -5px;
+	}
+	/* 最后面的三个圆的投影 */
+	.loader-text div:nth-child(8)::after,
+	.loader-text div:nth-child(9)::after,
+	.loader-text div:nth-child(10)::after{
+		left: 0;
+		margin-left: 0;
+	}
+	/* 接下来为各个文字设置动画延迟时间 */
+	.loader-text div:nth-child(2){
+		animation-delay: 0.2s;
+	}
+	.loader-text div:nth-child(3){
+		animation-delay: 0.4s;
+	}
+	.loader-text div:nth-child(4){
+		animation-delay: 0.6s;
+	}
+	.loader-text div:nth-child(5){
+		animation-delay: 0.8s;
+	}
+	.loader-text div:nth-child(6){
+		animation-delay: 1s;
+	}
+	.loader-text div:nth-child(7){
+		animation-delay: 1.2s;
+	}
+	.loader-text div:nth-child(8){
+		animation-delay: 1.4s;
+	}
+	.loader-text div:nth-child(9){
+		animation-delay: 1.6s;
+	}
+	.loader-text div:nth-child(10){
+		animation-delay: 1.8s;
+	}
+	
+	/* 定义动画 */
+	/* 背景渐变动画 */
+	@keyframes gradient {
+		50%{
+			background-position: 100% 0%;
+		}
+	}
+	/* 旋转动画 */
+	@keyframes spin {
+		0%{
+			transform: rotate(0);
+		}
+		100%{
+			transform: rotate(360deg);
+		}
+	}
+	/* 文字移动动画 */
+	@keyframes move {
+		0%{
+			right: 0;
+			opacity: 0;
+		}
+		35%{
+			right: 41%;
+			opacity: 1;
+			transform: rotate(0);
+		}
+		65%{
+			right: 59%;
+			opacity: 1;
+			transform: rotate(0);
+		}
+		100%{
+			right: 100%;
+			transform: rotate(-180deg);
+		}
+	}
+	
+	
+	.image-overlay {
+	    position: fixed;
+	    top: 0;
+	    left: 0;
+	    width: 100%;
+	    height: 100%;
+	    background-color: rgba(0, 0, 0, 0.8);
+	    z-index: 9999;
+	    display: flex;
+	    justify-content: center;
+	    align-items: center;
+	}
+	
+	/* 放大后的图片样式 */
+	.enlarged-img {
+	    position: absolute;
+	    border-radius: 15px;
+	    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+	    transition: all 0.5s ease;
+	}
+	
+	/* 定义图片放大展示的动画效果 */
+	.enlarged-img.show-img {
+	    opacity: 1;
+	    transform: scale(1);
+	}
+	/* 加载元素样式 */
+	.loading-element {
+	    text-align: center;
+	    color: #fff;
+	    font-size: 16px;
+	    position: absolute;
+	    top: 50%;
+	    left: 50%;
+	    transform: translate(-50%, -50%);
+	    display: none; /* 初始隐藏，当图片开始加载时显示 */
+	}
+	
+	/* 懒加载图片初始隐藏样式 */
+	.lazy-load-img {
+	    opacity: 0;
+	    visibility: hidden;
+	}
+	#back-to-top {
+	    position: fixed;
+	    bottom: 20px;
+	    right: 20px;
+	    width: 50px;
+	    height: 50px;
+	    border-radius: 50%;
+	    background-color: rgba(0, 0, 0, 0.6);
+	    color: #fff;
+	    border: none;
+	    cursor: pointer;
+	    outline: none;
+	    display: flex;
+	    justify-content: center;
+	    align-items: center;
+	    font-size: 30px;
+	    z-index: 9999;
+	    transition: background-color 0.3s ease;
+	}
+	
+	#back-to-top:hover {
+	    background-color: rgba(0, 0, 0, 0.8);
+	}
+	.zt-card{
+		display: flex;
+		gap: 5px;
+		justify-content: center;
+		align-items: center;
+		
+	}
+	.card-r{
+		display: flex;
+		flex-direction: column;
+		width: 350px;
+		margin: 5px;
+	}
+	
+	.card-r .wenben{
+		width: 100%;
+		background: rgba(255, 255, 255, 0.7); /* 半透明背景 */
+		color: #686868;
+		text-align: center;
+	}
+	.card-y-con{
+		margin-left: 20px;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 10px;
+		margin-top: 5px;
+		align-self: flex-start;
+		
+	}
+	.card-y-con .card {
+	width: 300px;
+	background: rgba(255, 255, 255, 0.7); /* 半透明背景 */
+	padding: 15px;
+	display: inline-block;
+	margin: 10px 8px 0 0;
+	border: 2px solid transparent;
+	border-radius: 5px;
+	overflow:hidden;
+	padding: 5px;
+	box-shadow: 3px 2px 10px #000000;
 }
-/* 旋转loading的外圈 */
-.loader{
-    width: 150px;
-    height: 150px;
-    border: 3px solid transparent;
-    border-top-color: #fff;
-    /* 相对定位 居中 */
-    position: relative;
-    left: 50%;
-    top: 50%;
-    margin-left: -75px;
-    margin-top: -75px;
-    z-index: 2;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /* 执行旋转动画 */
-    animation: spin 1.7s linear infinite;
+.card-y-con .card:hover{
+	border-color: #f00;
 }
-/* 旋转loading的中圈 */
-.loader::before{
-    content: "";
-    /* 绝对定位 */
-    position: absolute;
-    top: 5px;
-    left: 5px;
-    bottom: 5px;
-    right: 5px;
-    border-radius: 50%;
-    border: 3px solid transparent;
-    border-top-color: #fff;
-    /* 执行反向的旋转动画 reverse:反向 */
-    animation: spin 0.6s linear infinite reverse;
-}
-/* 旋转loading的内圈 */
-.loader::after{
-    content: "";
-    /* 绝对定位 */
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    bottom: 15px;
-    right: 15px;
-    border-radius: 50%;
-    border: 3px solid transparent;
-    border-top-color: #fff;
-    /* 执行旋转动画 */
-    animation: spin 1s linear infinite;
-}
-/* logo */
-.loader img{
-    width: 55%;
-    height: 55%;
-    border-radius: 50%;
-    /* 执行反向的旋转动画,时长必须和外圈的动画一致(不让其跟着旋转) */
-    animation: spin 1.7s linear infinite reverse;
-}
-.loader-text{
-    width: 50%;
-    height: 36px;
-    /* 绝对定位 水平居中 */
-    position: absolute;
-    top: 72%;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 3;
-    /* 防止选取 */
-    user-select: none;
-}
-.loader-text div{
-    width: 30px;
-    height: 36px;
-    color: #fff;
-    font-size: 32px;
-    margin: 0 20px;
-    /* 绝对定位 */
-    position: absolute;
-    /* 默认隐藏+旋转180度 */
-    opacity: 0;
-    transform: rotate(180deg);
-    /* 执行文字移动动画 */
-    animation: move 2s linear infinite;
-}
-/* 最后面的三个圆 */
-.loader-text div:nth-child(8)::before,
-.loader-text div:nth-child(9)::before,
-.loader-text div:nth-child(10)::before{
-    content: "";
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background-color: #fff;
-    position: absolute;
-    left: 0;
-    bottom: 0;
-}
-/* 文字下的投影 */
-.loader-text div::after{
-    content: "";
-    width: 10px;
-    height: 5px;
-    border-radius: 50%;
-    background-color: rgba(255,255,255,0.15);
-    position: absolute;
-    bottom: -40px;
-    left: 50%;
-    margin-left: -5px;
-}
-/* 最后面的三个圆的投影 */
-.loader-text div:nth-child(8)::after,
-.loader-text div:nth-child(9)::after,
-.loader-text div:nth-child(10)::after{
-    left: 0;
-    margin-left: 0;
-}
-/* 接下来为各个文字设置动画延迟时间 */
-.loader-text div:nth-child(2){
-    animation-delay: 0.2s;
-}
-.loader-text div:nth-child(3){
-    animation-delay: 0.4s;
-}
-.loader-text div:nth-child(4){
-    animation-delay: 0.6s;
-}
-.loader-text div:nth-child(5){
-    animation-delay: 0.8s;
-}
-.loader-text div:nth-child(6){
-    animation-delay: 1s;
-}
-.loader-text div:nth-child(7){
-    animation-delay: 1.2s;
-}
-.loader-text div:nth-child(8){
-    animation-delay: 1.4s;
-}
-.loader-text div:nth-child(9){
-    animation-delay: 1.6s;
-}
-.loader-text div:nth-child(10){
-    animation-delay: 1.8s;
+.card-y-con .card:hover img{
+	transform: scale(1.2);
+  transition: all 0.5s ease; /* 同样设置过渡效果，确保动画的连贯性 */
+  border-radius: 15px;
 }
 
-/* 定义动画 */
-/* 背景渐变动画 */
-@keyframes gradient {
-    50%{
-        background-position: 100% 0%;
-    }
+.card-y-con .card .imge{
+	box-shadow: 0px 0px 10px #ff5858;
+	padding: 5px;
+	width: 290px;
+	border-radius: 5px;
+	overflow:hidden;
+	
 }
-/* 旋转动画 */
-@keyframes spin {
-    0%{
-        transform: rotate(0);
-    }
-    100%{
-        transform: rotate(360deg);
-    }
+
+.card-y-con .card img {
+	width:100%;
+	transition: all 0.5s ease; /* 设置过渡效果，让动画更平滑，0.5s是过渡时间，可以根据需要调整 */
+	border-radius: 5px;
 }
-/* 文字移动动画 */
-@keyframes move {
-    0%{
-        right: 0;
-        opacity: 0;
-    }
-    35%{
-        right: 41%;
-        opacity: 1;
-        transform: rotate(0);
-    }
-    65%{
-        right: 59%;
-        opacity: 1;
-        transform: rotate(0);
-    }
-    100%{
-        right: 100%;
-        transform: rotate(-180deg);
-    }
+
+.card-y-con .card h5 {
+	margin: 20px;
+	color: #000000;
+	font-size: 20px;
+	text-align: center;
 }
-		</style>
+
+.card-y-con .card p {
+	font-size: 15px;
+	color: #616161;
+	margin: 5px 0 15px 0;
+	text-align: center;
+}
+	@media screen and (max-width: 800px) {
+	   .zt-card{
+	   	flex-direction: column;
+	   	justify-content: center;
+		align-items: center;
+	   }
+	   .card-y-con{
+	   justify-content: center;
+	   align-self: flex-start;
+	   margin: 0;
+	   }
+	   
+	}
+			</style>
+		<link rel="stylesheet" href="./css/new_file.css" />
+		<script src="./js/new_file.js"></script>
 	</head>
 	<body>
 		<div id="loading-overlay">
-        <div class="loader"><img src="#" alt=""><!-- 学校logo --></div>
-        <div class="loader-text">
-            <!-- 10个div -->
-            <div>L</div>
-            <div>O</div>
-            <div>A</div>
-            <div>D</div>
-            <div>I</div>
-            <div>N</div>
-            <div>G</div>
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
-    </div>
+			<div class="loader"><img src="./1.png" alt=""></div>
+			<div class="loader-text">
+				<!-- 10个div -->
+				<div>L</div>
+				<div>O</div>
+				<div>A</div>
+				<div>D</div>
+				<div>I</div>
+				<div>N</div>
+				<div>G</div>
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
+		</div>
 		<header>
-		    <div class="img">
-				   <h1>XXX学校全民</h1>
-				   <b>XXX专业XXX年级</b>
-					<a href="#"><button>进入网站</button></a>
-		    </div>
+			<nav>
+			    <a href="#a"><i style="font-size:24px" class="fa">&#xf1fe</i>风景</a>
+			    <a href="#b"><i style="font-size:24px" class="fa">&#xf187</i>分区</a>
+			    <a href="#c"><i style="font-size:24px" class="fa">&#xf009</i>记录</a>
+			    <a href="#d"><i style="font-size:24px" class="fa">&#xf00b</i>更多</a>
+			</nav>
 		</header>
-		<div class="sidebar">
-		    <ul>
-		      <li><a href="#1" class="nav-link" data-target="section1">同学简介</a></li>
-		      <li><a href="#2" class="nav-link" data-target="section2">班级介绍</a></li>
-		      <li><a href="#3" class="nav-link" data-target="section3">作品展示</a></li>
-		      <li><a href="#4" class="nav-link" data-target="section4">奖项展示</a></li>
-			  <li style="border-bottom: 3px solid rgba(0,0,0);"><a href="#5" class="nav-link" data-target="section4">团队介绍</a></li>
-			  <li><a href="#"><i class="fa fa-angle-double-up" style="font-size: 25px;"></i> 回到顶部</a></li>
-			  <li id="shareUrlButton"><a><i id="shareUrlButton" class="fa fa-link" style="font-size: 20px;"></i> 分享</a></li>
-			  <li><a href=""> <i class="fa fa-undo" style="font-size: 25px;"></i> 刷新</a></li>
-		    </ul>
-			
-		  </div>
-		<div class="a" id="1" style="height: 100%;">
-			<h3 style="font-size: 35px; color: black; text-align: center;">同学简介 <a href="./txjj/index.html" style="color: aquamarine;"><button style="float: right;font-size:15px">更多<i class="fa fa-angle-double-right" style="font-size:15px"></i></button></a>  </h3>
-			<!--显示同学图片加上鼠标移入简便简介出现-->
-			<div class="pub">
-				<!--微信头像-->
-				<figure class="sample">
-				  <img src="./img/1.jpg" alt="sample1" />
-				  <figcaption>
-				    <h3>同学1</h3>
-				    <!-- 随机文本，Lorem -->
-				    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. </p>
-				  </figcaption>
-				  <a href="#"></a>
-				</figure>
-				
-				<figure class="sample">
-				  <img src="./img/1.jpg" alt="sample1" />
-				  <figcaption>
-				    <h3>同学1</h3>
-				    <p>Deleniti, cum sit consectetur minima amet ad rerum? </p>
-				  </figcaption>
-				  <a href="#"></a>
-				</figure>
-				
-				<figure class="sample">
-				  <img src="./img/1.jpg" alt="sample1" />
-				  <figcaption>
-				    <h3>同学1</h3>
-				    <p>Provident voluptate magni ducimus reprehenderit consequuntur alias excepturi. </p>
-				  </figcaption>
-				  <a href="#"></a>
-				</figure>
-				<figure class="sample">
-				  <img src="./img/1.jpg" alt="sample1" />
-				  <figcaption>
-				    <h3>同学1</h3>
-				    <p>Provident voluptate magni ducimus reprehenderit consequuntur alias excepturi. </p>
-				  </figcaption>
-				  <a href="#"></a>
-				</figure>
-				<figure class="sample">
-				  <img src="./img/1.jpg" alt="sample1" />
-				  <figcaption>
-				    <h3>同学1</h3>
-				    <p>Provident voluptate magni ducimus reprehenderit consequuntur alias excepturi. </p>
-				  </figcaption>
-				  <a href="#"></a>
-				</figure>
-				<figure class="sample">
-				  <img src="./img/1.jpg" alt="sample1" />
-				  <figcaption>
-				    <h3>同学1</h3>
-				    <p>Provident voluptate magni ducimus reprehenderit consequuntur alias excepturi. </p>
-				  </figcaption>
-				  <a href="#"></a>
-				</figure>
-				<figure class="sample">
-				  <img src="./img/1.jpg" alt="sample1" />
-				  <figcaption>
-				    <h3>同学1</h3>
-				    <p>Provident voluptate magni ducimus reprehenderit consequuntur alias excepturi. </p>
-				  </figcaption>
-				  <a href="#"></a>
-				</figure>
-				<figure class="sample">
-				  <img src="./img/1.jpg" alt="sample1" />
-				  <figcaption>
-				    <h3>同学1</h3>
-				    <p>Provident voluptate magni ducimus reprehenderit consequuntur alias excepturi. </p>
-				  </figcaption>
-				  <a href="#"></a>
-				</figure>
-			</div>
+		<div class="tp">
+			<div class="search-box">
+        <input type="text" class="search-txt" placeholder="想搜啥?" />
+        <a class="search-btn">
+            <i class="fa fa-search" aria-hidden="true"></i>
+        </a>
+    </div>
 		</div>
-		<div class="b" id="2" style="height: 100%;">
-			<h4 style="color: black;">班级介绍/学校美景 <a href="./txjj/index.html" style="color: aquamarine;"><button style="float: right;font-size:15px">更多<i class="fa fa-angle-double-right" style="font-size:15px"></i></button></a> </h4>
-			<div class="mdui-row mdui-m-t-2">
-			    <div class="mdui-col-xs-12">
-			        <p class="mdui-text-color-white" style="color: #393939; font-size: 20px;">
-			            穿插其中的还有许多日常生活的抓拍：自习室里专注的眼神，午餐时分的谈笑声，图书馆内的静谧背影……这些看似平凡的瞬间，却是构成我们班级故事不可或缺的部分，它们温暖而又真实，让人不禁想起那段同窗情谊，那份纯粹的快乐。
-			
-			            我们的班级图片墙，就像是一个时光机，每次走过都会勾起心中的回忆，让人感慨万千。它不仅见证了我们的成长历程，更承载着我们对班级深深的归属感和怀念之情。每当有新面孔加入，我们便会邀请他们一起分享这些故事，让他们更快融入这个温暖的大家庭。
-			
-			            这面墙，是我们的记忆宝库，是情感的纽带，更是我们班级灵魂的缩影。它提醒着我们要珍惜眼前人，把握当下事，同时也鼓励着我们继续前行，创造更多属于我们的美好记忆。
-			        </p>
-			        <div class="mdui-grid-tile">
-			            <mdui-card clickable style="width: 200px;height: 124px"><a
-			                    href="ric/20240921145000.jpg"><img src="ric/20240921145000.jpg"
-			                        style="width: 200px;height: 124px"></a></mdui-card>
-			            <mdui-card clickable style="width: 200px;height: 124px"><a
-			                    href="ric/20240921145027.jpg"><img src="ric/20240921145027.jpg"
-			                        style="width: 200px;height: 124px"></a></mdui-card>
-			            <mdui-card clickable style="width: 200px;height: 124px"><a
-			                    href="ric/20240921145031.jpg"><img src="ric/20240921145031.jpg"
-			                        style="width: 200px;height: 124px"></a></mdui-card>
-			            <mdui-card clickable style="width: 200px;height: 124px"><a
-			                    href="ric/20240921145035.jpg"><img src="ric/20240921145038.jpg"
-			                        style="width: 200px;height: 124px"></a></mdui-card>
-			            <mdui-card clickable style="width: 200px;height: 124px"><a
-			                    href="ric/20240921145044.jpg"><img src="ric/20240921145044.jpg"
-			                        style="width: 200px;height: 124px"></a></mdui-card>
-			            <mdui-card clickable style="width: 200px;height: 124px"><a
-			                    href="ric/20240921145049.jpg"><img src="ric/20240921145049.jpg"
-			                        style="width: 200px;height: 124px"></a></mdui-card>
-			        </div>
-			    </div>
-			    <mdui-button variant="outlined" style="height: 35px;">还有更多属于我们自己的脚步...</mdui-button>
+		<div class="f-card">
+			<div class="card">
+				<img src="./img/1731734247258.jpg" alt="" />
+				<div class="txt">
+					<h5>同学简介</h5>
+					<p>班同学资料</p>
+				</div>
 			</div>
-		</div>
-		<div class="c" id="3" style="height: 100%;">
-			<h4>优秀作品展示 <a href="./txjj/index.html" style="color: aquamarine;"><button style="float: right;font-size:15px">更多<i class="fa fa-angle-double-right" style="font-size:15px"></i></button></a> </h4>
-			<h5 style="text-align: center; color: #393939;">求仙问卜，不如本事在身</h5>
-			<p>优秀的作品，就是我们班级的实力，就是我们班级的骄傲，就是我们班级的力量...</p>
-			<div class="db">
-				<div class="container">
-				    <div class="card">
-				        <img src="./videoback.jpg" alt="">
-				        <div class="text">
-				            <h2>项目作品名字 <span>/日期</span> /耗时</h2>
-				            <p>团队人员：</p>
-				        </div>
-				    </div>
-				    <div class="card">
-				        <img src="./videoback.jpg" alt="">
-				        <div class="text">
-				            <h2>项目作品名字 <span>/日期</span> /耗时</h2>
-				            <p>团队人员：</p>
-				        </div>
-				    </div>
-				    <div class="card">
-				        <img src="./videoback.jpg" alt="">
-				        <div class="text">
-				           <h2>项目作品名字 <span>/日期</span> /耗时</h2>
-				           <p>团队人员：</p>
-				        </div>
-				    </div>
+			<div class="card">
+				<img src="./img/1731734253123.jpg" alt="" />
+				<div class="txt">
+					<h5>奖项</h5>
+					<p>班级奖项</p>
+				</div>
+			</div>
+			<div class="card">
+				<img src="./img/1731754346802.png" alt="" />
+				<div class="txt">
+					<h5>班级作品</h5>
+					<p>班级同学作品</p>
+				</div>
+			</div>
+			<div class="card">
+				<img src="./img/1731754826750.png" alt="" />
+				<div class="txt">
+					<h5>班级事迹</h5>
+					<p>同学事迹记录</p>
 				</div>
 			</div>
 		</div>
-		<div class="d" id="4" style="height: 100%;">
-			<h4>奖项展示 <a href="./txjj/index.html" style="color: aquamarine;"><button style="float: right;font-size:15px">更多<i class="fa fa-angle-double-right" style="font-size:15px"></i></button></a> </h4>
-			<p>这里是我们班级的奖项，我们的荣誉和成就，都在这里展示，让我们的班级更加辉煌！</p>
-			<div class=".zt">
-			<div class="container">
-			    <div class="item">
-			        <span class="border"></span>
-			        <span class="border"></span>
-			        <span class="border"></span>
-			        <span class="border"></span>
-			        <img src="./videoback.jpg" alt="">
-			    </div>
-			    <div class="item">
-			        <span class="border"></span>
-			        <span class="border"></span>
-			        <span class="border"></span>
-			        <span class="border"></span>
-			        <img src="./videoback.jpg" alt="">
-			    </div>
-			    <div class="item">
-			        <span class="border"></span>
-			        <span class="border"></span>
-			        <span class="border"></span>
-			        <span class="border"></span>
-			        <img src="./videoback.jpg" alt="">
-			    </div>
+			<h2 id="a"><i style="font-size:24px" class="fa">&#xf1fe</i>学习倒影-风景记录</h2>
+			<div class="tpk">
+					<div class="lazy-load-container">
+					        <a href="./img/1731754594610.jpg"><img data-src="./img/1731754594610.jpg" alt=""></a>
+					        <div class="loading-element">加载中...</div>
+					    </div>
+					    <div class="lazy-load-container">
+					        <a href="./img/1731755939109.jpg"><img data-src="./img/1731755939109.jpg" alt=""></a>
+					        <div class="loading-element">加载中...</div>
+					    </div>
+					<div class="lazy-load-container">	
+					<a href="./img/1731755344645.png"><img src="./img/1731755344645.png" alt=""/></a>
+					<div class="loading-element">加载中...</div>
+					</div>
+					<div class="lazy-load-container">	
+					<a href="./img/1731756615281.png"><img src="./img/1731756615281.png" alt=""></a>
+					<div class="loading-element">加载中...</div>
+					</div>
+					<div class="lazy-load-container">
+					<a href="./img/1731755503279.png"><img src="./img/1731755503279.png" alt=""></a>
+					<div class="loading-element">加载中...</div>
+					</div>
+					<div class="lazy-load-container">
+					<a href="./img/1731754443228.png"><img src="./img/1731754443228.png" alt=""/></a>
+					<div class="loading-element">加载中...</div>
+					</div>
+					<div class="lazy-load-container">
+					<a href="./img/1731755658019.jpg"><img src="./img/1731755658019.jpg" alt=""/></a>
+					<div class="loading-element">加载中...</div>
+					</div>
+					<div class="lazy-load-container">
+					<a href="./img/1731755939109.jpg"><img src="./img/1731755939109.jpg" alt=""/></a>
+					<div class="loading-element">加载中...</div>
+					</div>
+					<div class="lazy-load-container">
+					<a href="./img/1731754479552.png"><img src="./img/1731754479552.png" alt=""/></a>
+					<div class="loading-element">加载中...</div>
+					</div>
+					<div class="lazy-load-container">
+					<a href="./img/1731754278780.jpg"><img src="./img/1731754278780.jpg" alt=""/></a>
+					<div class="loading-element">加载中...</div>
+					</div>
+					<div class="lazy-load-container">
+					<a href="./img/1731755603434.png"><img src="./img/1731755603434.png" alt=""></a>
+					<div class="loading-element">加载中...</div>
+					</div>
 			</div>
-			</div>
+			<!-- 下一个模板 -->
+		<h2 id="b"><i style="font-size:24px" class="fa">&#xf187</i> 校园分区</h2>
+		<div class="fq">
+			<div class="card1">
+				<img src="./img/1731755613140.png" alt="示例图片">
+				  <h3>这是卡片标题</h3>
+				  <p>这里是卡片的一些描述文字内容，可以根据实际需求进行填写和修改，用于展示相关信息等等。</p>
+			  </div>
+			  <div class="card1">
+				<img src="./img/1731754594610.jpg" alt="示例图片">
+				  <h3>这是卡片标题</h3>
+				  <p>这里是卡片的一些描述文字内容，可以根据实际需求进行填写和修改，用于展示相关信息等等。</p>
+				
+			  </div>
+			  <div class="card1">
+				<img  src="./img/1731755726997.jpg" alt="示例图片">
+				  <h3>这是卡片标题</h3>
+				  <p>这里是卡片的一些描述文字内容，可以根据实际需求进行填写和修改，用于展示相关信息等等。</p>
+				
+			  </div>
+			  <div class="card1">
+				<img src="./img/1731755927727.jpg" alt="示例图片">
+				  <h3>这是卡片标题</h3>
+				  <p>这里是卡片的一些描述文字内容，可以根据实际需求进行填写和修改，用于展示相关信息等等。</p>
+				
+			  </div>
 		</div>
-		<div class="d" id="5" style="height: 100%">
-			<h4>制作团队</h4>
-			<div class="card">
-				<img src="https://www.hkmre.top/Jack/wen/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20241024190147.jpg" alt="">
-				<h5>Jack</h5>
-				<p>前段工程师/python爬虫/UI设计师</p>
-				<p>广州市工贸技师学院-网站</p>
+		<h2 id="c"><i style="font-size:24px" class="fa">&#xf009</i>校园趣事多-记录</h2>
+		<div class="bj1">
+			<div class="text1">
+				<h2>时光记录</h2>
+				<p>每一张卡片都是时光的痕迹</p>
 			</div>
-			<div class="card">
-				<img src="./img/2.jfif" alt="">
-				<h5>布莫</h5>
-				<p>全栈开发/php/AI算法</p>
-				<p>广州大学附属中学美林湖学院</p>
 			</div>
-			<div class="card">
-				<img src="./img/1.jfif" alt="">
-				<h5>sugar</h5>
-				<p>UI设计师/素描/电脑绘画/</p>
-				<p>广州市城市建设职业学校-设计</p>
+		<div class="zt-card">
+			<div class="card-r">
+				<img src="./img/1731754479552.png" alt="" />
+				<div class="wenben">
+					<h4>记录一</h4>
+					<p>记录者：XXX</p>
+				</div>
 			</div>
+			<!-- 右边 -->
+			<div class="card-y-con">
+				<div class="card">
+					<div class="imge">
+						<img src="./img/1731755168087.jpg" alt="">
+					</div>
+					
+					<h5>记录二</h5>
+					<p>记录者：XXX</p>
+					<p>时间:XX/XX/XX</p>
+				</div>
+				<div class="card">
+					<div class="imge">
+						<img src="./img/1731755726997.jpg" alt="">
+					</div>
+					
+					<h5>记录三</h5>
+					<p>记录者：XXX</p>
+					<p>时间:XX/XX/XX</p>
+				</div>
+				<div class="card">
+					<div class="imge">
+						<img src="./img/1731754443228.png" alt="">
+					</div>
+					<h5>记录四</h5>
+					<p>记录者：XXX</p>
+					<p>时间:XX/XX/XX</p>
+				</div>
+				<div class="card">
+					<div class="imge">
+						<img src="./img/1731755419490.png" alt="">
+					</div>
+					<h5>记录五</h5>
+					<p>记录者：XXX</p>
+					<p>时间:XX/XX/XX</p>
+				</div>
+				<div class="card">
+					<div class="imge">
+						<img src="./img/1731754826750.png" alt="">
+					</div>
+					<div>
+						<h5>记录六</h5>
+						<p>记录者：XXX</p>
+						<p>时间:XX/XX/XX</p>
+					</div>
+					
+				</div>
+				<div class="card">
+					<div class="imge">
+						<img src="./img/1731755489191.png" alt="">
+					</div>
+					<h5>记录七</h5>
+					<p>记录者：XXX</p>
+					<p>时间:XX/XX/XX</p>
+				</div>
+				</div>
 		</div>
-		<script src="new_file.js"></script>
+		<h2 id='d'><i style="font-size:24px" class="fa">&#xf00b</i>更多</h2>
+		<div style="width: 100%;height: 500px;box-shadow: 3px 2px 10px #000000;background: rgba(255, 255, 255, 0.7);
+		flex-direction: column;
+		display:flex;align-items: center;justify-content: center;">
+			<h1>更多功能自己添加.......</h1>
+			<p>没灵感了，傻逼UI还死了，不回消息</p>
+		</div>
+		
+		<button id="back-to-top" style="display: none;">返回顶部</button>
 		<script>
 			// 在页面加载完成时隐藏加载动画
 window.addEventListener('load', function () {
     document.getElementById('loading-overlay').style.display = 'none';
 });
 
+// 获取所有导航链接
+const navLinks = document.querySelectorAll('nav a');
+
+// 为每个导航链接添加点击事件监听器
+navLinks.forEach(link => {
+    link.addEventListener('click', function (e) {
+        e.preventDefault(); // 阻止默认的链接跳转行为
+
+        const targetId = this.getAttribute('href'); // 获取目标元素的ID
+        const targetElement = document.querySelector(targetId); // 根据ID获取目标元素
+
+        if (targetElement) {
+            // 计算目标元素相对于顶部的偏移量
+            const targetOffset = targetElement.offsetTop;
+
+            // 使用window.scrollTo实现平滑滚动
+            window.scrollTo({
+                top: targetOffset,
+                behavior: 'smooth'
+            });
+        }
+    });
+});
+
+// 获取所有在.tpk和.fq中的图片元素
+const allImages = document.querySelectorAll('.tpk img,.fq img');
+
+// 为每个图片添加点击事件监听器
+allImages.forEach(image => {
+    image.addEventListener('click', function () {
+        // 创建一个全屏的div作为图片放大展示的容器
+        const overlay = document.createElement('div');
+        overlay.classList.add('image-overlay');
+        document.body.appendChild(overlay);
+
+        // 创建一个img元素用于放大展示当前点击的图片
+        const enlargedImage = document.createElement('img');
+        enlargedImage.src = this.src;
+        enlargedImage.classList.add('enlarged-img');
+        overlay.appendChild(enlargedImage);
+
+        // 计算图片放大后的尺寸和位置，使其在屏幕居中
+        const windowWidth = window.innerWidth;
+        const windowHeight = window.innerHeight;
+        const imgWidth = this.width;
+        const imgHeight = this.height;
+        const scaleFactor = Math.min(windowWidth / imgWidth, windowHeight / imgHeight);
+        const newWidth = imgWidth * scaleFactor;
+        const newHeight = imgHeight * scaleFactor;
+        const left = (windowWidth - newWidth) / 2;
+        const top = (windowHeight - newHeight) / 2;
+
+        // 设置放大图片的初始样式（隐藏且大小位置为计算值）
+        enlargedImage.style.width = `${newWidth}px`;
+        enlargedImage.style.height = `${newHeight}px`;
+        enlargedImage.style.left = `${left}px`;
+        enlargedImage.style.top = `${top}px`;
+        enlargedImage.style.opacity = '0';
+        enlargedImage.style.transform = 'scale(0)';
+
+        // 添加一个类来触发放大展示的动画效果
+        enlargedImage.classList.add('show-img');
+
+        // 添加点击事件监听器到覆盖层，点击时关闭放大展示
+        overlay.addEventListener('click', function () {
+            // 移除类来触发关闭动画效果
+            enlargedImage.classList.remove('show-img');
+
+            // 设置一个定时器，在动画结束后移除覆盖层和放大图片元素
+            setTimeout(() => {
+                overlay.remove();
+                enlargedImage.remove();
+            }, 500);
+        });
+    });
+});
+// 获取所有要懒加载的图片元素
+const lazyLoadImages = document.querySelectorAll('.lazy-load-img');
+
+// 定义一个函数用于检查图片是否进入可视区域并加载图片
+function lazyLoad() {
+    lazyLoadImages.forEach(image => {
+        const rect = image.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+        const windowTop = window.pageYOffset;
+
+        if (rect.top < windowHeight + windowTop && rect.bottom > windowTop) {
+            // 图片进入可视区域，显示加载元素并加载真实图片
+            const loadingElement = image.nextElementSibling;
+            loadingElement.style.display = 'block';
+
+            const src = image.getAttribute('data-src');
+            const img = new Image();
+            img.src = src;
+
+            img.onload = function () {
+                // 图片加载完成，隐藏加载元素，显示图片并设置过渡效果
+                loadingElement.style.display = 'none';
+                image.src = src;
+                image.style.opacity = '1';
+                image.style.visibility = 'visible';
+                image.style.transition = 'opacity 0.5s ease';
+            };
+
+            img.onerror = function () {
+                // 图片加载出错，可进行相应处理，这里简单隐藏加载元素
+                loadingElement.style.display = 'none';
+            };
+        }
+    });
+}
+
+// 页面加载时和滚动时都检查图片是否需要加载
+window.addEventListener('load', lazyLoad);
+window.addEventListener('scroll', lazyLoad);
 
 
+// 获取返回顶部按钮元素
+const backToTopButton = document.getElementById('back-to-top');
+
+// 定义一个函数用于检查页面滚动位置并控制按钮显示
+function checkScrollPosition() {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    if (scrollTop > 200) {
+        backToTopButton.style.display = 'visible';
+    } else {
+        backToTopButton.style.display = 'none';
+    }
+}
+
+// 页面加载时检查一次滚动位置
+window.addEventListener('load', checkScrollPosition);
+
+// 页面滚动时实时检查滚动位置并控制按钮显示
+window.addEventListener('scroll', checkScrollPosition);
+
+// 给返回顶部按钮添加点击事件监听器，实现返回顶部功能
+backToTopButton.addEventListener('click', function () {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+});
 		</script>
-		<style>
-		    .example-placement mdui-button {
-		        margin: 0.25rem;
-		        width: 7.5rem;
-		    }
-		</style>
 	</body>
 </html>
