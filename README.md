@@ -1,3 +1,7 @@
+以下内容使用AI翻译
+
+The following was translated using AI
+
 # English
 Uh, don't know what there is to write about, hmmm ...... It's a normal school class website.  
 
