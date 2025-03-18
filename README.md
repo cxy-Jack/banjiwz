@@ -1,3 +1,13 @@
+Uh, don't know what there is to write about, hmmm ...... It's a normal school class website.  
+
+
+  Well, there are some animation ah, what what, basic responsive ah, uh, uh, oh there is a navigation, uh, this template, responsive should not have any problem, uh load animation ah, anchor scroll jump ah, uh seems to have no.  
+  What does it look like? Long below that look  
+
+![效果图片](1.png) 
+
+And then, in fact, and then, in fact, it actually, in fact, there are more, more interesting, more interesting features.
+
 额，也不知道有啥好写的，嗯......就是一个普通的学校班级网站  
 
 
@@ -6,7 +16,3 @@
 ![效果图片](1.png) 
 
 然后嘛，其实额，然后接下来，它其实额，其实嘛还有的，比较有趣的，额有趣的功能哈
-
-
-
-oi，小鬼，那个wzindex的文件夹呢，嗯图片要自己填充，仅仅提供模版哈
