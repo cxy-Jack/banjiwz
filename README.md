@@ -1,5 +1,5 @@
+# English
 Uh, don't know what there is to write about, hmmm ...... It's a normal school class website.  
-
 
   Well, there are some animation ah, what what, basic responsive ah, uh, uh, oh there is a navigation, uh, this template, responsive should not have any problem, uh load animation ah, anchor scroll jump ah, uh seems to have no.  
   What does it look like? Long below that look  
@@ -7,6 +7,8 @@ Uh, don't know what there is to write about, hmmm ...... It's a normal school cl
 ![效果图片](1.png) 
 
 And then, in fact, and then, in fact, it actually, in fact, there are more, more interesting, more interesting features.
+
+# 简体中文
 
 额，也不知道有啥好写的，嗯......就是一个普通的学校班级网站  
 
